@@ -1,0 +1,27 @@
+parameters:
+  users_service_base_url: 'https://users.example.com'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  Psr\Http\Message\RequestFactoryInterface:
+    class: GuzzleHttp\Psr7\HttpFactory
+
+  GuzzleHttp\Handler\MockHandler:
+    public: true
+    class: GuzzleHttp\Handler\MockHandler
+
+  GuzzleHttp\HandlerStack:
+    public: true
+    class: GuzzleHttp\HandlerStack
+    factory: ['GuzzleHttp\HandlerStack', 'create']
+    arguments:
+      $handler: '@GuzzleHttp\Handler\MockHandler'
+
+  Psr\Http\Client\ClientInterface:
+    class: GuzzleHttp\Client
+    arguments:
+      $config:
+        handler: '@GuzzleHttp\HandlerStack'
