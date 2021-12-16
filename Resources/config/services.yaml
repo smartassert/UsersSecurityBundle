@@ -1,5 +1,7 @@
 parameters:
-  users_service_base_url: '%env(USERS_SERVICE_BASE_URL)%'
+  users_security_bundle_base_url: '%env(USERS_SERVICE_BASE_URL)%'
+  users_security_bundle_firewall_pattern: '%env(USERS_SECURITY_BUNDLE_FIREWALL_PATTERN)%'
+  users_security_bundle_access_control_pattern: '%env(USERS_SECURITY_BUNDLE_ACCESS_CONTROL_PATTERN)%'
 
 services:
   _defaults:
@@ -19,7 +21,7 @@ services:
 
   SmartAssert\UsersClient\Routes:
     arguments:
-      $baseUrl: '%users_service_base_url%'
+      $baseUrl: '%users_security_bundle_base_url%'
 
   SmartAssert\UsersClient\RequestBuilder:
 

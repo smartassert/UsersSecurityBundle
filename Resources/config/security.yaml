@@ -1,0 +1,16 @@
+security:
+    enable_authenticator_manager: true
+    providers:
+        user_provider:
+            id: SmartAssert\UsersSecurityBundle\Security\UserProvider
+    firewalls:
+        main:
+            pattern:  '%users_security_bundle_firewall_pattern%'
+            stateless: true
+            custom_authenticators:
+                - SmartAssert\UsersSecurityBundle\Security\Authenticator
+            provider: user_provider
+            entry_point: SmartAssert\UsersSecurityBundle\Security\AuthenticationEntryPoint
+
+    access_control:
+        - { path: '%users_security_bundle_access_control_pattern%', roles: ROLE_USER }

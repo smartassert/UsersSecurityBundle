@@ -1,5 +1,5 @@
 parameters:
-  users_service_base_url: 'https://users.example.com'
+  users_security_bundle_base_url: 'https://users.example.com'
 
 services:
   _defaults:
