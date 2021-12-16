@@ -1,3 +1,6 @@
+parameters:
+  users_service_base_url: '%env(USERS_SERVICE_BASE_URL)%'
+
 services:
   _defaults:
     autowire: true
@@ -10,3 +13,14 @@ services:
 
   SmartAssert\UsersSecurityBundle\Security\TokenExtractor:
     public: true
+
+  SmartAssert\UsersSecurityBundle\Security\Authenticator:
+    public: true
+
+  SmartAssert\UsersClient\Routes:
+    arguments:
+      $baseUrl: '%users_service_base_url%'
+
+  SmartAssert\UsersClient\RequestBuilder:
+
+  SmartAssert\UsersClient\Client:
