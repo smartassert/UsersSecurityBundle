@@ -24,3 +24,6 @@ services:
   SmartAssert\UsersClient\RequestBuilder:
 
   SmartAssert\UsersClient\Client:
+
+  SmartAssert\UsersSecurityBundle\Security\AuthenticationEntryPoint:
+    public: true
