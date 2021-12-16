@@ -2,6 +2,11 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
-    public: true
+
+  SmartAssert\UsersSecurityBundle\Security\AuthorizationProperties:
 
   SmartAssert\UsersSecurityBundle\Security\UserProvider:
+    public: true
+
+  SmartAssert\UsersSecurityBundle\Security\TokenExtractor:
+    public: true
