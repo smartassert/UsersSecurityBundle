@@ -1,0 +1,45 @@
+name: standards
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  php-cs-fixer:
+    name: PHP CS Fixer Dry Run
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run
+        run: composer cs-fixer-dry-run
+
+  phpcs:
+    name: PHPCS - PHP ${{ matrix.php }} ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php: ['8.0']
+    runs-on: ${{ matrix.operating-system }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Download dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: ${{ matrix.php }}
+          args: --ignore-platform-reqs --quiet
+
+      - name: Run
+        run: composer cs-phpcs
