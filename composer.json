@@ -41,7 +41,7 @@
         ]
     },
     "require": {
-        "php": ">=8.0.2",
+        "php": "^8.0|^8.1",
         "ext-json": "*",
         "smartassert/users-client": "^0.1.0",
         "symfony/config": "^6.0",
