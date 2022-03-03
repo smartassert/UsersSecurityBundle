@@ -4,8 +4,11 @@ security:
         user_provider:
             id: SmartAssert\UsersSecurityBundle\Security\UserProvider
     firewalls:
-        main:
-            pattern:  '%users_security_bundle_firewall_pattern%'
+        public:
+            pattern: '%users_security_bundle_public_pattern%'
+            security: false
+        secured:
+            pattern:  '%users_security_bundle_secured_pattern%'
             stateless: true
             custom_authenticators:
                 - SmartAssert\UsersSecurityBundle\Security\Authenticator
@@ -13,4 +16,4 @@ security:
             entry_point: SmartAssert\UsersSecurityBundle\Security\AuthenticationEntryPoint
 
     access_control:
-        - { path: '%users_security_bundle_access_control_pattern%', roles: ROLE_USER }
+        - { path: '%users_security_bundle_access_control_path%', roles: ROLE_USER }

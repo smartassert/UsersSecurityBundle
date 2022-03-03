@@ -1,7 +1,8 @@
 parameters:
   users_security_bundle_base_url: '%env(USERS_SECURITY_BUNDLE_BASE_URL)%'
-  users_security_bundle_firewall_pattern: '%env(USERS_SECURITY_BUNDLE_FIREWALL_PATTERN)%'
-  users_security_bundle_access_control_pattern: '%env(USERS_SECURITY_BUNDLE_ACCESS_CONTROL_PATTERN)%'
+  users_security_bundle_public_pattern: '%env(USERS_SECURITY_BUNDLE_PUBLIC_PATTERN)%'
+  users_security_bundle_secured_pattern: '%env(USERS_SECURITY_BUNDLE_SECURED_PATTERN)%'
+  users_security_bundle_access_control_path: '%env(USERS_SECURITY_BUNDLE_ACCESS_CONTROL_PATH)%'
 
 services:
   _defaults:
