@@ -33,7 +33,11 @@
             "@cs-phpcs"
         ],
         "static-analysis": "./vendor/bin/phpstan analyse --ansi",
-        "test": "./vendor/bin/phpunit --colors=always",
+        "test": [
+            "./vendor/bin/phpunit --colors=always Tests/Unit",
+            "./vendor/bin/phpunit --colors=always Tests/Functional"
+        ],
+        "test-integration": "./vendor/bin/phpunit --colors=always Tests/Integration",
         "ci": [
             "@cs",
             "@static-analysis",

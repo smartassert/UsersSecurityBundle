@@ -7,4 +7,6 @@
     <arg name="extensions" value="php"/>
 
     <rule ref="PSR12"/>
+
+    <exclude-pattern>Tests/Integration/build/*</exclude-pattern>
 </ruleset>
