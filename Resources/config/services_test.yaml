@@ -25,3 +25,8 @@ services:
     arguments:
       $config:
         handler: '@GuzzleHttp\HandlerStack'
+
+  GuzzleHttp\Psr7\HttpFactory: ~
+
+  Psr\Http\Message\StreamFactoryInterface:
+    alias: GuzzleHttp\Psr7\HttpFactory
