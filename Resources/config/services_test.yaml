@@ -1,5 +1,5 @@
 parameters:
-  users_security_bundle_base_url: 'https://users.example.com'
+  users_security_bundle_base_url: 'http://localhost:9080'
 
 services:
   _defaults:
@@ -9,24 +9,27 @@ services:
   Psr\Http\Message\RequestFactoryInterface:
     class: GuzzleHttp\Psr7\HttpFactory
 
-  GuzzleHttp\Handler\MockHandler:
-    public: true
-    class: GuzzleHttp\Handler\MockHandler
-
-  GuzzleHttp\HandlerStack:
-    public: true
-    class: GuzzleHttp\HandlerStack
-    factory: ['GuzzleHttp\HandlerStack', 'create']
-    arguments:
-      $handler: '@GuzzleHttp\Handler\MockHandler'
+#  GuzzleHttp\Handler\MockHandler:
+#    public: true
+#    class: GuzzleHttp\Handler\MockHandler
+#
+#  GuzzleHttp\HandlerStack:
+#    public: true
+#    class: GuzzleHttp\HandlerStack
+#    factory: ['GuzzleHttp\HandlerStack', 'create']
+#    arguments:
+#      $handler: '@GuzzleHttp\Handler\MockHandler'
 
   Psr\Http\Client\ClientInterface:
     class: GuzzleHttp\Client
-    arguments:
-      $config:
-        handler: '@GuzzleHttp\HandlerStack'
+#    arguments:
+#      $config:
+#        handler: '@GuzzleHttp\HandlerStack'
 
   GuzzleHttp\Psr7\HttpFactory: ~
 
   Psr\Http\Message\StreamFactoryInterface:
     alias: GuzzleHttp\Psr7\HttpFactory
+
+  SmartAssert\UsersClient\Client:
+    public: true

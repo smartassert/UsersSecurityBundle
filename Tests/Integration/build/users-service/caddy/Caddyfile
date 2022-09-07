@@ -1,0 +1,8 @@
+http://* {
+	root * /app/public
+	php_fastcgi * app:9000
+
+	log {
+		output file /dev/stdout
+	}
+}
