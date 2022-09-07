@@ -6,6 +6,8 @@ namespace SmartAssert\UsersSecurityBundle\Tests\Functional\Security;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use SmartAssert\UsersClient\Client as UsersServiceClient;
+use SmartAssert\UsersClient\Model\Token;
+use SmartAssert\UsersClient\Model\User;
 use SmartAssert\UsersSecurityBundle\Security\Authenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
@@ -36,23 +38,49 @@ class AuthenticatorTest extends AbstractBaseFunctionalTest
     }
 
     /**
-     * @dataProvider authenticateFailureDataProvider
+     * @dataProvider authenticateFailureNoTokenInRequestDataProvider
      */
-    public function testAuthenticateFailure(?string $userToken): void
+    public function testAuthenticateFailureNoTokenInRequest(Request $request): void
     {
-        $requestHeaders = [];
-        if (is_string($userToken)) {
-            $requestHeaders['HTTP_AUTHORIZATION'] = 'Bearer ' . $userToken;
-        }
+        self::expectExceptionObject(
+            new CustomUserMessageAuthenticationException('Invalid user token')
+        );
 
-        $usersServiceClient = $this->createUsersServiceClient((string) $userToken, null);
+        $this->authenticator->authenticate($request);
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function authenticateFailureNoTokenInRequestDataProvider(): array
+    {
+        return [
+            'token missing' => [
+                'request' => new Request(),
+            ],
+            'token empty' => [
+                'request' => new Request(server: [
+                    'HTTP_AUTHORIZATION' => 'Bearer '
+                ]),
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider authenticateFailureDataProvider
+     *
+     * @param non-empty-string $userTokenValue
+     */
+    public function testAuthenticateFailure(string $userTokenValue, Request $request): void
+    {
+        $usersServiceClient = $this->createUsersServiceClient(new Token($userTokenValue), null);
         $this->setUsersServiceClientOnAuthenticator($usersServiceClient);
 
         self::expectExceptionObject(
             new CustomUserMessageAuthenticationException('Invalid user token')
         );
 
-        $this->authenticator->authenticate(new Request(server: $requestHeaders));
+        $this->authenticator->authenticate($request);
     }
 
     /**
@@ -61,19 +89,22 @@ class AuthenticatorTest extends AbstractBaseFunctionalTest
     public function authenticateFailureDataProvider(): array
     {
         return [
-            'no user token' => [
-                'userToken' => null,
-                'request' => new Request(),
-            ],
             'invalid user token' => [
-                'userToken' => 'invalid-token',
+                'userTokenValue' => 'invalid-token',
+                'request' => new Request(server: [
+                    'HTTP_AUTHORIZATION' => 'Bearer invalid-token',
+                ]),
             ],
         ];
     }
 
     public function testAuthenticateSuccess(): void
     {
-        $usersServiceClient = $this->createUsersServiceClient(self::USER_TOKEN, self::USER_ID);
+        $token = new Token(self::USER_TOKEN);
+        $userIdentifier = md5((string) rand()) . '@example.com';
+        $user = new User(self::USER_ID, $userIdentifier);
+
+        $usersServiceClient = $this->createUsersServiceClient($token, $user);
         $this->setUsersServiceClientOnAuthenticator($usersServiceClient);
 
         $passport = $this->authenticator->authenticate(new Request(server: [
@@ -84,12 +115,16 @@ class AuthenticatorTest extends AbstractBaseFunctionalTest
         self::assertEquals($expectedPassport, $passport);
     }
 
-    private function createUsersServiceClient(string $token, ?string $returnValue): UsersServiceClient
+    private function createUsersServiceClient(Token $token, ?User $returnValue): UsersServiceClient
     {
         $client = \Mockery::mock(UsersServiceClient::class);
         $client
             ->shouldReceive('verifyApiToken')
-            ->with($token)
+            ->withArgs(function (Token $passedToken) use ($token) {
+                self::assertSame($token->token, $passedToken->token);
+
+                return true;
+            })
             ->andReturn($returnValue)
         ;
 

@@ -26,6 +26,8 @@ services:
 
   SmartAssert\UsersClient\RequestBuilder:
 
+  SmartAssert\UsersClient\ObjectFactory: ~
+
   SmartAssert\UsersClient\Client:
 
   SmartAssert\UsersSecurityBundle\Security\AuthenticationEntryPoint:
