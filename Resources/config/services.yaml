@@ -9,12 +9,12 @@ services:
     autowire: true
     autoconfigure: true
 
-  SmartAssert\UsersSecurityBundle\Security\AuthorizationProperties:
+  SmartAssert\SecurityTokenExtractor\TokenExtractor: ~
 
-  SmartAssert\UsersSecurityBundle\Security\UserProvider:
+  SmartAssert\UsersSecurityBundle\Security\SymfonyRequestTokenExtractor:
     public: true
 
-  SmartAssert\SecurityTokenExtractor\TokenExtractor:
+  SmartAssert\UsersSecurityBundle\Security\UserProvider:
     public: true
 
   SmartAssert\UsersSecurityBundle\Security\Authenticator:
