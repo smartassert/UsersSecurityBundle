@@ -10,7 +10,7 @@ use Symfony\Component\String\UnicodeString;
 class TokenExtractor
 {
     public function __construct(
-        private AuthorizationProperties $authorizationRequestProperties,
+        private readonly AuthorizationProperties $authorizationRequestProperties,
     ) {
     }
 
