@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace SmartAssert\UsersSecurityBundle\Security;
 
 use Psr\Http\Client\ClientExceptionInterface;
+use SmartAssert\ServiceClient\Exception\InvalidResponseContentException;
+use SmartAssert\ServiceClient\Exception\InvalidResponseDataException;
 use SmartAssert\UsersClient\Client as UsersClient;
-use SmartAssert\UsersClient\Exception\InvalidResponseContentException;
-use SmartAssert\UsersClient\Exception\InvalidResponseDataException;
 use SmartAssert\UsersClient\Model\Token;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

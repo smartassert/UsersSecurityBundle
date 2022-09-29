@@ -9,22 +9,8 @@ services:
   Psr\Http\Message\RequestFactoryInterface:
     class: GuzzleHttp\Psr7\HttpFactory
 
-#  GuzzleHttp\Handler\MockHandler:
-#    public: true
-#    class: GuzzleHttp\Handler\MockHandler
-#
-#  GuzzleHttp\HandlerStack:
-#    public: true
-#    class: GuzzleHttp\HandlerStack
-#    factory: ['GuzzleHttp\HandlerStack', 'create']
-#    arguments:
-#      $handler: '@GuzzleHttp\Handler\MockHandler'
-
   Psr\Http\Client\ClientInterface:
     class: GuzzleHttp\Client
-#    arguments:
-#      $config:
-#        handler: '@GuzzleHttp\HandlerStack'
 
   GuzzleHttp\Psr7\HttpFactory: ~
 
@@ -32,4 +18,6 @@ services:
     alias: GuzzleHttp\Psr7\HttpFactory
 
   SmartAssert\UsersClient\Client:
+    arguments:
+      $baseUrl: '%users_security_bundle_base_url%'
     public: true

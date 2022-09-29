@@ -20,15 +20,15 @@ services:
   SmartAssert\UsersSecurityBundle\Security\Authenticator:
     public: true
 
-  SmartAssert\UsersClient\Routes:
-    arguments:
-      $baseUrl: '%users_security_bundle_base_url%'
+  SmartAssert\ServiceClient\ResponseDecoder: ~
 
-  SmartAssert\UsersClient\RequestBuilder:
+  SmartAssert\ServiceClient\Client: ~
 
   SmartAssert\UsersClient\ObjectFactory: ~
 
   SmartAssert\UsersClient\Client:
+    arguments:
+      $baseUrl: '%users_security_bundle_base_url%'
 
   SmartAssert\UsersSecurityBundle\Security\AuthenticationEntryPoint:
     public: true
