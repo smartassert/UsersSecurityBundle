@@ -76,7 +76,6 @@
         "symfony/http-kernel": "^6.0",
         "symfony/security-core": "^6.0",
         "symfony/security-http": "^6.0",
-        "symfony/string": "^6.0",
         "symfony/yaml": "^6.0"
     },
     "require-dev": {
