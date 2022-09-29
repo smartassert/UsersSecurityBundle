@@ -17,12 +17,12 @@ class TokenExtractor
     public function extract(Request $request): ?string
     {
         $headers = $request->headers;
-        $authorizationHeader = $headers->get($this->authorizationRequestProperties->getHeaderName());
+        $authorizationHeader = $headers->get($this->authorizationRequestProperties->headerName);
         if (null === $authorizationHeader) {
             return null;
         }
 
-        $valuePrefix = $this->authorizationRequestProperties->getValuePrefix();
+        $valuePrefix = $this->authorizationRequestProperties->valuePrefix;
 
         $authorizationHeaderString = new UnicodeString($authorizationHeader);
         if (false === $authorizationHeaderString->startsWith($valuePrefix)) {
