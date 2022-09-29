@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace SmartAssert\UsersSecurityBundle\Security;
 
 use Psr\Http\Client\ClientExceptionInterface;
-use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\RequestInterface;
-use SmartAssert\SecurityTokenExtractor\TokenExtractor;
 use SmartAssert\ServiceClient\Exception\InvalidResponseContentException;
 use SmartAssert\ServiceClient\Exception\InvalidResponseDataException;
 use SmartAssert\UsersClient\Client as UsersClient;
@@ -25,15 +22,14 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 class Authenticator extends AbstractAuthenticator
 {
     public function __construct(
-        private readonly TokenExtractor $tokenExtractor,
+        private readonly SymfonyRequestTokenExtractor $tokenExtractor,
         private readonly UsersClient $usersServiceClient,
-        private readonly RequestFactoryInterface $httpMessageFactory,
     ) {
     }
 
     public function supports(Request $request): bool
     {
-        return false !== $this->tokenExtractor->extract($this->createPsr7RequestStub($request));
+        return false !== $this->tokenExtractor->extract($request);
     }
 
     /**
@@ -43,9 +39,7 @@ class Authenticator extends AbstractAuthenticator
      */
     public function authenticate(Request $request): Passport
     {
-        $tokenValue = trim((string) $this->tokenExtractor->extract(
-            $this->createPsr7RequestStub($request)
-        ));
+        $tokenValue = trim((string) $this->tokenExtractor->extract($request));
 
         if ('' === $tokenValue) {
             throw new CustomUserMessageAuthenticationException('Invalid user token');
@@ -67,16 +61,5 @@ class Authenticator extends AbstractAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         return new Response('', Response::HTTP_UNAUTHORIZED);
-    }
-
-    private function createPsr7RequestStub(Request $request): RequestInterface
-    {
-        return $this->httpMessageFactory
-            ->createRequest('GET', '')
-            ->withHeader(
-                $this->tokenExtractor->headerName,
-                (string) $request->headers->get($this->tokenExtractor->headerName)
-            )
-        ;
     }
 }
