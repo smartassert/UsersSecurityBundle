@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace SmartAssert\UsersSecurityBundle\Tests\Functional\Security;
 
 use PHPUnit\Framework\TestCase;
+use SmartAssert\SecurityTokenExtractor\TokenExtractor;
 use SmartAssert\UsersSecurityBundle\Security\AuthenticationEntryPoint;
-use SmartAssert\UsersSecurityBundle\Security\TokenExtractor;
 use SmartAssert\UsersSecurityBundle\Security\UserProvider;
 use SmartAssert\UsersSecurityBundle\Tests\Functional\TestingKernel;
 use Symfony\Component\DependencyInjection\ContainerInterface;

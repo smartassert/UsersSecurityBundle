@@ -14,7 +14,7 @@ services:
   SmartAssert\UsersSecurityBundle\Security\UserProvider:
     public: true
 
-  SmartAssert\UsersSecurityBundle\Security\TokenExtractor:
+  SmartAssert\SecurityTokenExtractor\TokenExtractor:
     public: true
 
   SmartAssert\UsersSecurityBundle\Security\Authenticator:
