@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     public function __construct(
-        private string $token
+        private readonly string $token
     ) {
     }
 

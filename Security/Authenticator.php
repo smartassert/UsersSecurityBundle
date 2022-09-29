@@ -22,8 +22,8 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 class Authenticator extends AbstractAuthenticator
 {
     public function __construct(
-        private TokenExtractor $tokenExtractor,
-        private UsersClient $usersServiceClient
+        private readonly TokenExtractor $tokenExtractor,
+        private readonly UsersClient $usersServiceClient
     ) {
     }
 
