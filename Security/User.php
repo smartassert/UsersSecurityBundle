@@ -8,8 +8,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
+    /**
+     * @param non-empty-string $securityToken
+     */
     public function __construct(
-        private readonly string $identifier
+        private readonly string $identifier,
+        private readonly string $securityToken,
     ) {
     }
 
@@ -30,5 +34,13 @@ class User implements UserInterface
     public function getUserIdentifier(): string
     {
         return $this->identifier;
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    public function getSecurityToken(): string
+    {
+        return $this->securityToken;
     }
 }

@@ -16,6 +16,8 @@ services:
 
   SmartAssert\UsersSecurityBundle\Security\UserProvider:
     public: true
+    arguments:
+      $requestStack: '@request_stack'
 
   SmartAssert\UsersSecurityBundle\Security\Authenticator:
     public: true
