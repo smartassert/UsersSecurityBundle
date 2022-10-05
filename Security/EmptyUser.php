@@ -6,16 +6,8 @@ namespace SmartAssert\UsersSecurityBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-abstract class AbstractUser implements UserInterface
+class EmptyUser implements UserInterface
 {
-    /**
-     * @param non-empty-string $identifier
-     */
-    public function __construct(
-        private readonly string $identifier,
-    ) {
-    }
-
     public function getRoles(): array
     {
         return [];
@@ -25,11 +17,8 @@ abstract class AbstractUser implements UserInterface
     {
     }
 
-    /**
-     * @return non-empty-string
-     */
     public function getUserIdentifier(): string
     {
-        return $this->identifier;
+        return '';
     }
 }

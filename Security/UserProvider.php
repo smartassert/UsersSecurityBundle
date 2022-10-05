@@ -28,6 +28,11 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
+        $identifier = trim($identifier);
+        if ('' === $identifier) {
+            return new EmptyUser();
+        }
+
         $currentRequest = $this->requestStack->getCurrentRequest();
         if (null === $currentRequest) {
             return new InvalidUser($identifier);
