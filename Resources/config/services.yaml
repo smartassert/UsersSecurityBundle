@@ -34,3 +34,8 @@ services:
 
   SmartAssert\UsersSecurityBundle\Security\AuthenticationEntryPoint:
     public: true
+
+  SmartAssert\UsersSecurityBundle\ArgumentResolver\UserResolver:
+    public: true
+    arguments:
+      $security: '@security.helper'
