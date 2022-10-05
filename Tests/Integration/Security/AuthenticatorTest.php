@@ -14,7 +14,6 @@ use SmartAssert\UsersSecurityBundle\Security\Authenticator;
 use SmartAssert\UsersSecurityBundle\Tests\Functional\TestingKernel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
@@ -28,7 +27,6 @@ class AuthenticatorTest extends TestCase
     private Authenticator $authenticator;
     private Token $apiToken;
     private string $userId;
-    private RequestStack $requestStack;
 
     protected function setUp(): void
     {
@@ -60,10 +58,6 @@ class AuthenticatorTest extends TestCase
         $apiToken = $usersClient->createApiToken($apiKey->key);
         \assert($apiToken instanceof Token);
         $this->apiToken = $apiToken;
-
-        $requestStack = $this->container->get('request_stack');
-        \assert($requestStack instanceof RequestStack);
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -71,8 +65,6 @@ class AuthenticatorTest extends TestCase
      */
     public function testAuthenticateFailureNoTokenInRequest(Request $request): void
     {
-        $this->requestStack->push($request);
-
         self::expectExceptionObject(
             new CustomUserMessageAuthenticationException('Invalid user token')
         );
