@@ -30,12 +30,12 @@ class UserProvider implements UserProviderInterface
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         if (null === $currentRequest) {
-            return new InvalidUser();
+            return new InvalidUser($identifier);
         }
 
         $securityToken = (string) $this->tokenExtractor->extract($currentRequest);
         if ('' === $securityToken) {
-            return new InvalidUser();
+            return new InvalidUser($identifier);
         }
 
         return new User($identifier, $securityToken);

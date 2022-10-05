@@ -6,22 +6,6 @@ namespace SmartAssert\UsersSecurityBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class InvalidUser implements UserInterface
+class InvalidUser extends AbstractUser implements UserInterface
 {
-    /**
-     * @return string[]
-     */
-    public function getRoles(): array
-    {
-        return [];
-    }
-
-    public function eraseCredentials(): void
-    {
-    }
-
-    public function getUserIdentifier(): string
-    {
-        return '';
-    }
 }
