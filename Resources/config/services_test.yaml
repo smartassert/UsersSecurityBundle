@@ -21,3 +21,7 @@ services:
     arguments:
       $baseUrl: '%users_security_bundle_base_url%'
     public: true
+
+  'request_stack':
+    public: true
+    class: Symfony\Component\HttpFoundation\RequestStack

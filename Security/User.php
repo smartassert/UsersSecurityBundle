@@ -6,11 +6,16 @@ namespace SmartAssert\UsersSecurityBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User implements UserInterface
+class User extends AbstractUser implements UserInterface
 {
+    /**
+     * @param non-empty-string $securityToken
+     */
     public function __construct(
-        private readonly string $identifier
+        string $identifier,
+        private readonly string $securityToken,
     ) {
+        parent::__construct($identifier);
     }
 
     /**
@@ -23,12 +28,11 @@ class User implements UserInterface
         ];
     }
 
-    public function eraseCredentials(): void
+    /**
+     * @return non-empty-string
+     */
+    public function getSecurityToken(): string
     {
-    }
-
-    public function getUserIdentifier(): string
-    {
-        return $this->identifier;
+        return $this->securityToken;
     }
 }
