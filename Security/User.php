@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User extends AbstractUser implements UserInterface
 {
     /**
+     * @param non-empty-string $identifier
      * @param non-empty-string $securityToken
      */
     public function __construct(
