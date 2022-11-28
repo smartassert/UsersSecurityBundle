@@ -71,7 +71,7 @@
         "ext-json": "*",
         "psr/http-factory": "^1.0",
         "smartassert/security-token-extractor": ">=0.2,<1",
-        "smartassert/users-client": ">=2.5,<3",
+        "smartassert/users-client": ">=3.0,<4",
         "symfony/config": "^6.1",
         "symfony/dependency-injection": "^6.1",
         "symfony/http-foundation": "^6.1",
