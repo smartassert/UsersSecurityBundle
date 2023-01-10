@@ -1,5 +1,4 @@
 security:
-    enable_authenticator_manager: true
     providers:
         user_provider:
             id: SmartAssert\UsersSecurityBundle\Security\UserProvider
