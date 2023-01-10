@@ -40,41 +40,12 @@ class UserResolverTest extends TestCase
         $this->userResolver = $userResolver;
     }
 
-    /**
-     * @dataProvider supportsDataProvider
-     */
-    public function testSupports(ArgumentMetadata $argumentMetadata, bool $expected): void
+    public function testResolveReturnsNoUser(): void
     {
-        self::assertSame($expected, $this->userResolver->supports(new Request(), $argumentMetadata));
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function supportsDataProvider(): array
-    {
-        return [
-            'argument type is not ' . User::class => [
-                'argumentMetadata' => new ArgumentMetadata(
-                    'argumentName',
-                    self::class,
-                    false,
-                    false,
-                    null
-                ),
-                'expected' => false,
-            ],
-            'argument type is ' . User::class => [
-                'argumentMetadata' => new ArgumentMetadata(
-                    'argumentName',
-                    User::class,
-                    false,
-                    false,
-                    null
-                ),
-                'expected' => true,
-            ],
-        ];
+        self::assertSame(
+            [],
+            $this->userResolver->resolve(new Request(), $this->createArgumentMetadata(self::class))
+        );
     }
 
     /**
@@ -89,8 +60,9 @@ class UserResolverTest extends TestCase
             ->andReturn($securityUser)
         ;
 
-        $generator = $this->userResolver->resolve(new Request(), \Mockery::mock(ArgumentMetadata::class));
-        iterator_to_array($generator);
+        $argumentMetadata = $this->createArgumentMetadata(User::class);
+
+        $this->userResolver->resolve(new Request(), $argumentMetadata);
     }
 
     /**
@@ -120,10 +92,22 @@ class UserResolverTest extends TestCase
             ->andReturn($user)
         ;
 
-        $generator = $this->userResolver->resolve(new Request(), \Mockery::mock(ArgumentMetadata::class));
+        $argumentMetadata = $this->createArgumentMetadata(User::class);
 
-        $users = iterator_to_array($generator);
+        $users = $this->userResolver->resolve(new Request(), $argumentMetadata);
+        self::assertIsArray($users);
         self::assertCount(1, $users);
         self::assertSame($user, $users[0]);
+    }
+
+    private function createArgumentMetadata(string $type): ArgumentMetadata
+    {
+        return new ArgumentMetadata(
+            'argumentName',
+            $type,
+            false,
+            false,
+            null
+        );
     }
 }

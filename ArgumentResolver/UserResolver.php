@@ -18,11 +18,6 @@ class UserResolver implements ValueResolverInterface
     ) {
     }
 
-    public function supports(Request $request, ArgumentMetadata $argument): bool
-    {
-        return User::class === $argument->getType();
-    }
-
     /**
      * @return array<User>
      */
