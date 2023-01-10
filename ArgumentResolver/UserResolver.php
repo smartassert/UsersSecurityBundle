@@ -6,12 +6,12 @@ namespace SmartAssert\UsersSecurityBundle\ArgumentResolver;
 
 use SmartAssert\UsersSecurityBundle\Security\User;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 
-class UserResolver implements ArgumentValueResolverInterface
+class UserResolver implements ValueResolverInterface
 {
     public function __construct(
         private readonly Security $security,
@@ -24,16 +24,20 @@ class UserResolver implements ArgumentValueResolverInterface
     }
 
     /**
-     * @return \Traversable<User>
+     * @return array<User>
      */
-    public function resolve(Request $request, ArgumentMetadata $argument): \Traversable
+    public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
+        if (User::class !== $argument->getType()) {
+            return [];
+        }
+
         $user = $this->security->getUser();
 
         if (!$user instanceof User) {
             throw new AccessDeniedException();
         }
 
-        yield $user;
+        return [$user];
     }
 }
