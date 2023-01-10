@@ -13,14 +13,15 @@ use SmartAssert\UsersSecurityBundle\Security\User;
 use SmartAssert\UsersSecurityBundle\Tests\Functional\TestingKernel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserResolverTest extends TestCase
 {
     private UserResolver $userResolver;
-    private MockInterface $security;
+    private MockInterface $tokenStorage;
 
     protected function setUp(): void
     {
@@ -31,9 +32,9 @@ class UserResolverTest extends TestCase
 
         $container = $kernel->getContainer();
 
-        $security = \Mockery::mock(Security::class);
-        $this->security = $security;
-        $container->set('security.helper', $this->security);
+        $tokenStorage = \Mockery::mock(TokenStorageInterface::class);
+        $this->tokenStorage = $tokenStorage;
+        $container->set('security.token_storage', $this->tokenStorage);
 
         $userResolver = $container->get(UserResolver::class);
         \assert($userResolver instanceof UserResolver);
@@ -51,13 +52,13 @@ class UserResolverTest extends TestCase
     /**
      * @dataProvider resolveThrowsAccessDeniedExceptionDataProvider
      */
-    public function testResolveThrowsAccessDeniedException(UserInterface $securityUser): void
+    public function testResolveThrowsAccessDeniedException(?TokenInterface $securityToken): void
     {
         self::expectException(AccessDeniedException::class);
 
-        $this->security
-            ->shouldReceive('getUser')
-            ->andReturn($securityUser)
+        $this->tokenStorage
+            ->shouldReceive('getToken')
+            ->andReturn($securityToken)
         ;
 
         $argumentMetadata = $this->createArgumentMetadata(User::class);
@@ -71,14 +72,41 @@ class UserResolverTest extends TestCase
     public function resolveThrowsAccessDeniedExceptionDataProvider(): array
     {
         return [
+            'no security token' => [
+                'securityToken' => null,
+            ],
             'generic user' => [
-                'securityUser' => \Mockery::mock(UserInterface::class),
+                'securityToken' => (function () {
+                    $token = \Mockery::mock(TokenInterface::class);
+                    $token
+                        ->shouldReceive('getUser')
+                        ->andReturn(\Mockery::mock(UserInterface::class))
+                    ;
+
+                    return $token;
+                })(),
             ],
             'empty user' => [
-                'securityUser' => new EmptyUser(),
+                'securityToken' => (function () {
+                    $token = \Mockery::mock(TokenInterface::class);
+                    $token
+                        ->shouldReceive('getUser')
+                        ->andReturn(new EmptyUser())
+                    ;
+
+                    return $token;
+                })(),
             ],
             'invalid user' => [
-                'securityUser' => new InvalidUser('invalid'),
+                'securityToken' => (function () {
+                    $token = \Mockery::mock(TokenInterface::class);
+                    $token
+                        ->shouldReceive('getUser')
+                        ->andReturn(new InvalidUser('invalid'))
+                    ;
+
+                    return $token;
+                })(),
             ],
         ];
     }
@@ -87,9 +115,15 @@ class UserResolverTest extends TestCase
     {
         $user = new User('valid', 'security token value');
 
-        $this->security
+        $securityToken = \Mockery::mock(TokenInterface::class);
+        $securityToken
             ->shouldReceive('getUser')
             ->andReturn($user)
+        ;
+
+        $this->tokenStorage
+            ->shouldReceive('getToken')
+            ->andReturn($securityToken)
         ;
 
         $argumentMetadata = $this->createArgumentMetadata(User::class);

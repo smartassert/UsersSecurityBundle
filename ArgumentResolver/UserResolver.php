@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class UserResolver implements ValueResolverInterface
 {
     public function __construct(
-        private readonly Security $security,
+        private readonly TokenStorageInterface $tokenStorage,
     ) {
     }
 
@@ -27,8 +27,7 @@ class UserResolver implements ValueResolverInterface
             return [];
         }
 
-        $user = $this->security->getUser();
-
+        $user = $this->tokenStorage->getToken()?->getUser();
         if (!$user instanceof User) {
             throw new AccessDeniedException();
         }
