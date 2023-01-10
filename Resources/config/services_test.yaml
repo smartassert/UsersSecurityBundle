@@ -26,6 +26,6 @@ services:
     public: true
     class: Symfony\Component\HttpFoundation\RequestStack
 
-  'security.helper':
+  'security.token_storage':
     public: true
     synthetic: true
