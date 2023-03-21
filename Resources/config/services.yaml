@@ -24,6 +24,9 @@ services:
 
   SmartAssert\ServiceClient\ResponseDecoder: ~
 
+  SmartAssert\ServiceClient\ResponseFactory\ResponseFactory:
+    factory: ['SmartAssert\ServiceClient\ResponseFactory\ResponseFactory', 'createFactory']
+
   SmartAssert\ServiceClient\Client: ~
 
   SmartAssert\UsersClient\ObjectFactory: ~

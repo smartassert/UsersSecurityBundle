@@ -6,8 +6,8 @@ namespace SmartAssert\UsersSecurityBundle\Security;
 
 use Psr\Http\Client\ClientExceptionInterface;
 use SmartAssert\ServiceClient\Exception\InvalidModelDataException;
-use SmartAssert\ServiceClient\Exception\InvalidResponseContentException;
 use SmartAssert\ServiceClient\Exception\InvalidResponseDataException;
+use SmartAssert\ServiceClient\Exception\InvalidResponseTypeException;
 use SmartAssert\ServiceClient\Exception\NonSuccessResponseException;
 use SmartAssert\UsersClient\Client as UsersClient;
 use SmartAssert\UsersClient\Model\Token;
@@ -36,10 +36,10 @@ class Authenticator extends AbstractAuthenticator
 
     /**
      * @throws ClientExceptionInterface
-     * @throws InvalidResponseContentException
      * @throws InvalidResponseDataException
      * @throws NonSuccessResponseException
      * @throws InvalidModelDataException
+     * @throws InvalidResponseTypeException
      */
     public function authenticate(Request $request): Passport
     {
