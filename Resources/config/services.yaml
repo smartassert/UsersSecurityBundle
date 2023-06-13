@@ -27,6 +27,8 @@ services:
   SmartAssert\ServiceClient\ResponseFactory\ResponseFactory:
     factory: ['SmartAssert\ServiceClient\ResponseFactory\ResponseFactory', 'createFactory']
 
+  SmartAssert\ServiceClient\ExceptionFactory\CurlExceptionFactory: ~
+
   SmartAssert\ServiceClient\Client: ~
 
   SmartAssert\UsersClient\ObjectFactory: ~
