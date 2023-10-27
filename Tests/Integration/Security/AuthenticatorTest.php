@@ -47,11 +47,11 @@ class AuthenticatorTest extends TestCase
         $frontendToken = $usersClient->createFrontendToken(self::USER_EMAIL, self::USER_PASSWORD);
         \assert($frontendToken instanceof RefreshableToken);
 
-        $frontendUser = $usersClient->verifyFrontendToken($frontendToken);
+        $frontendUser = $usersClient->verifyFrontendToken($frontendToken->token);
         \assert($frontendUser instanceof User);
         $this->userId = $frontendUser->id;
 
-        $apiKeys = $usersClient->listUserApiKeys($frontendToken);
+        $apiKeys = $usersClient->listUserApiKeys($frontendToken->token);
         $apiKey = $apiKeys->getDefault();
         \assert($apiKey instanceof ApiKey);
 

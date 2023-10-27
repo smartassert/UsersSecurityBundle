@@ -8,11 +8,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserProvider implements UserProviderInterface
+readonly class UserProvider implements UserProviderInterface
 {
     public function __construct(
-        private readonly RequestStack $requestStack,
-        private readonly SymfonyRequestTokenExtractor $tokenExtractor,
+        private RequestStack $requestStack,
+        private SymfonyRequestTokenExtractor $tokenExtractor,
     ) {
     }
 

@@ -11,10 +11,10 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class UserResolver implements ValueResolverInterface
+readonly class UserResolver implements ValueResolverInterface
 {
     public function __construct(
-        private readonly TokenStorageInterface $tokenStorage,
+        private TokenStorageInterface $tokenStorage,
     ) {
     }
 

@@ -6,7 +6,7 @@ namespace SmartAssert\UsersSecurityBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class User extends AbstractUser implements UserInterface
+readonly class User extends AbstractUser implements UserInterface
 {
     /**
      * @param non-empty-string $identifier
@@ -14,7 +14,7 @@ class User extends AbstractUser implements UserInterface
      */
     public function __construct(
         string $identifier,
-        private readonly string $securityToken,
+        private string $securityToken,
     ) {
         parent::__construct($identifier);
     }
