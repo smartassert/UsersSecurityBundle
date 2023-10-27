@@ -8,11 +8,11 @@ use Psr\Http\Message\RequestFactoryInterface;
 use SmartAssert\SecurityTokenExtractor\TokenExtractor;
 use Symfony\Component\HttpFoundation\Request;
 
-class SymfonyRequestTokenExtractor
+readonly class SymfonyRequestTokenExtractor
 {
     public function __construct(
-        private readonly RequestFactoryInterface $requestFactory,
-        private readonly TokenExtractor $tokenExtractor,
+        private RequestFactoryInterface $requestFactory,
+        private TokenExtractor $tokenExtractor,
     ) {
     }
 

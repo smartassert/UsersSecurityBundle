@@ -67,7 +67,7 @@
         ]
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-json": "*",
         "psr/http-factory": "^1.0",
         "smartassert/security-token-extractor": "^1.0",
@@ -88,7 +88,7 @@
         "phpstan/phpstan-mockery": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5",
-        "squizlabs/php_codesniffer": "^3.6",
+        "squizlabs/php_codesniffer": "dev-master#e1af9d72da7917a9ec075777094c9a5a480dbf9b",
         "symfony/phpunit-bridge": "^6.2",
         "webignition/object-reflector": "^1.0"
     },
