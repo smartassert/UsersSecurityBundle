@@ -10,7 +10,6 @@ use SmartAssert\ServiceClient\Exception\InvalidResponseDataException;
 use SmartAssert\ServiceClient\Exception\InvalidResponseTypeException;
 use SmartAssert\ServiceClient\Exception\NonSuccessResponseException;
 use SmartAssert\UsersClient\Client as UsersClient;
-use SmartAssert\UsersClient\Model\Token;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -49,7 +48,7 @@ class Authenticator extends AbstractAuthenticator
             throw new CustomUserMessageAuthenticationException('Invalid user token');
         }
 
-        $user = $this->usersServiceClient->verifyApiToken(new Token($tokenValue));
+        $user = $this->usersServiceClient->verifyApiToken($tokenValue);
         if (null === $user) {
             throw new CustomUserMessageAuthenticationException('Invalid user token');
         }
