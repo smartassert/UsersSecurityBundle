@@ -13,6 +13,7 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest]
         php: ['8.2', '8.3']
+        symfony: ['6.4.*', '7.0.*']
     runs-on: ${{ matrix.operating-system }}
 
     steps:
@@ -25,7 +26,9 @@ jobs:
           php-version: ${{ matrix.php }}
 
       - name: Install Composer dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader
+        run: |
+          sed -i 's/"\^6.4 || \^7.0"/\"${{ matrix.symfony }}"/g' composer.json
+          composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: PHPStan
         run: composer static-analysis
