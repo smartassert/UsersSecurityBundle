@@ -72,13 +72,13 @@
         "psr/http-factory": "^1.0",
         "smartassert/security-token-extractor": "^1.0",
         "smartassert/users-client": "^12.2",
-        "symfony/config": "^6.2 || ^6.3",
-        "symfony/dependency-injection": "^6.2 || ^6.3",
-        "symfony/http-foundation": "^6.2 || ^6.3",
-        "symfony/http-kernel": "^6.2 || ^6.3",
-        "symfony/security-core": "^6.2 || ^6.3",
-        "symfony/security-http": "^6.2 || ^6.3",
-        "symfony/yaml": "^6.2 || ^6.3"
+        "symfony/config": "^6.4 || ^7.0",
+        "symfony/dependency-injection": "^6.4 || ^7.0",
+        "symfony/http-foundation": "^6.4 || ^7.0",
+        "symfony/http-kernel": "^6.4 || ^7.0",
+        "symfony/security-core": "^6.4 || ^7.0",
+        "symfony/security-http": "^6.4 || ^7.0",
+        "symfony/yaml": "^6.4 || ^7.0"
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^7.4",
@@ -89,7 +89,7 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "dev-master#e1af9d72da7917a9ec075777094c9a5a480dbf9b",
-        "symfony/phpunit-bridge": "^6.2",
+        "symfony/phpunit-bridge": "^6.4 || ^7.0",
         "webignition/object-reflector": "^1.0"
     },
     "config": {

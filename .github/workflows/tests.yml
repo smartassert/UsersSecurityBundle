@@ -13,7 +13,7 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest]
         php: ['8.2', '8.3']
-        symfony: ['6.2.*', '6.3.*']
+        symfony: ['6.4.*', '7.0.*']
 
     runs-on: ${{ matrix.operating-system }}
 
@@ -28,7 +28,7 @@ jobs:
 
       - name: Install Composer dependencies
         run: |
-          sed -i 's/"\^6.2 || \^6.3"/\"${{ matrix.symfony }}"/g' composer.json
+          sed -i 's/"\^6.4 || \^7.0"/\"${{ matrix.symfony }}"/g' composer.json
           composer install --no-progress --prefer-dist --optimize-autoloader
 
       - name: Run tests

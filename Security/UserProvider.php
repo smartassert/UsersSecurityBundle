@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
+/**
+ * @implements UserProviderInterface<UserInterface>
+ */
 readonly class UserProvider implements UserProviderInterface
 {
     public function __construct(
