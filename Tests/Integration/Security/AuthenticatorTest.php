@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace SmartAssert\UsersSecurityBundle\Tests\Integration\Security;
 
 use PHPUnit\Framework\TestCase;
-use SmartAssert\UsersClient\Client;
-use SmartAssert\UsersClient\Model\ApiKey;
-use SmartAssert\UsersClient\Model\RefreshableToken;
-use SmartAssert\UsersClient\Model\Token;
-use SmartAssert\UsersClient\Model\User;
+use SmartAssert\TestAuthenticationProviderBundle\ApiTokenProvider;
+use SmartAssert\TestAuthenticationProviderBundle\UserProvider;
 use SmartAssert\UsersSecurityBundle\Security\Authenticator;
 use SmartAssert\UsersSecurityBundle\Tests\Functional\TestingKernel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -21,12 +18,9 @@ use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPasspor
 class AuthenticatorTest extends TestCase
 {
     private const USER_EMAIL = 'user@example.com';
-    private const USER_PASSWORD = 'password';
 
     protected ContainerInterface $container;
     private Authenticator $authenticator;
-    private Token $apiToken;
-    private string $userId;
 
     protected function setUp(): void
     {
@@ -40,24 +34,6 @@ class AuthenticatorTest extends TestCase
         $authenticator = $this->container->get(Authenticator::class);
         \assert($authenticator instanceof Authenticator);
         $this->authenticator = $authenticator;
-
-        $usersClient = $this->container->get(Client::class);
-        \assert($usersClient instanceof Client);
-
-        $frontendToken = $usersClient->createFrontendToken(self::USER_EMAIL, self::USER_PASSWORD);
-        \assert($frontendToken instanceof RefreshableToken);
-
-        $frontendUser = $usersClient->verifyFrontendToken($frontendToken->token);
-        \assert($frontendUser instanceof User);
-        $this->userId = $frontendUser->id;
-
-        $apiKeys = $usersClient->listUserApiKeys($frontendToken->token);
-        $apiKey = $apiKeys->getDefault();
-        \assert($apiKey instanceof ApiKey);
-
-        $apiToken = $usersClient->createApiToken($apiKey->key);
-        \assert($apiToken instanceof Token);
-        $this->apiToken = $apiToken;
     }
 
     /**
@@ -120,11 +96,19 @@ class AuthenticatorTest extends TestCase
 
     public function testAuthenticateSuccess(): void
     {
+        $apiTokenProvider = $this->container->get(ApiTokenProvider::class);
+        \assert($apiTokenProvider instanceof ApiTokenProvider);
+        $apiToken = $apiTokenProvider->get(self::USER_EMAIL);
+
         $passport = $this->authenticator->authenticate(new Request(server: [
-            'HTTP_AUTHORIZATION' => 'Bearer ' . $this->apiToken->token
+            'HTTP_AUTHORIZATION' => 'Bearer ' . $apiToken
         ]));
 
-        $expectedPassport = new SelfValidatingPassport(new UserBadge($this->userId));
+        $userProvider = $this->container->get(UserProvider::class);
+        \assert($userProvider instanceof UserProvider);
+        $frontendUser = $userProvider->get(self::USER_EMAIL);
+
+        $expectedPassport = new SelfValidatingPassport(new UserBadge($frontendUser['id']));
 
         self::assertEquals($expectedPassport, $passport);
     }

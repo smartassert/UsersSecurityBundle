@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace SmartAssert\UsersSecurityBundle\Security;
 
-use Psr\Http\Client\ClientExceptionInterface;
-use SmartAssert\ServiceClient\Exception\InvalidModelDataException;
-use SmartAssert\ServiceClient\Exception\InvalidResponseDataException;
-use SmartAssert\ServiceClient\Exception\InvalidResponseTypeException;
-use SmartAssert\ServiceClient\Exception\NonSuccessResponseException;
-use SmartAssert\UsersClient\Client as UsersClient;
+use SmartAssert\UsersSecurityBundle\Exception\HttpClientException;
+use SmartAssert\UsersSecurityBundle\Exception\HttpResponseException;
+use SmartAssert\UsersSecurityBundle\Exception\UserIdMissingException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -24,7 +21,7 @@ class Authenticator extends AbstractAuthenticator
 {
     public function __construct(
         private readonly SymfonyRequestTokenExtractor $tokenExtractor,
-        private readonly UsersClient $usersServiceClient,
+        private readonly ApiTokenVerifier $apiTokenVerifier,
     ) {
     }
 
@@ -34,11 +31,9 @@ class Authenticator extends AbstractAuthenticator
     }
 
     /**
-     * @throws ClientExceptionInterface
-     * @throws InvalidResponseDataException
-     * @throws NonSuccessResponseException
-     * @throws InvalidModelDataException
-     * @throws InvalidResponseTypeException
+     * @throws HttpClientException
+     * @throws HttpResponseException
+     * @throws UserIdMissingException
      */
     public function authenticate(Request $request): Passport
     {
@@ -48,12 +43,12 @@ class Authenticator extends AbstractAuthenticator
             throw new CustomUserMessageAuthenticationException('Invalid user token');
         }
 
-        $user = $this->usersServiceClient->verifyApiToken($tokenValue);
-        if (null === $user) {
+        $id = $this->apiTokenVerifier->verify($tokenValue);
+        if (null === $id) {
             throw new CustomUserMessageAuthenticationException('Invalid user token');
         }
 
-        return new SelfValidatingPassport(new UserBadge($user->id));
+        return new SelfValidatingPassport(new UserBadge($id));
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response

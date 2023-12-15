@@ -69,9 +69,9 @@
     "require": {
         "php": "^8.2",
         "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.8",
         "psr/http-factory": "^1.0",
         "smartassert/security-token-extractor": "^1.0",
-        "smartassert/users-client": "^12.2",
         "symfony/config": "^6.4 || ^7.0",
         "symfony/dependency-injection": "^6.4 || ^7.0",
         "symfony/http-foundation": "^6.4 || ^7.0",
@@ -81,13 +81,13 @@
         "symfony/yaml": "^6.4 || ^7.0"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^7.4",
         "mockery/mockery": "^1.5",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^1.4",
         "phpstan/phpstan-mockery": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5",
+        "smartassert/test-authenticaton-provider-bundle": "^5.0",
         "squizlabs/php_codesniffer": "dev-master#e1af9d72da7917a9ec075777094c9a5a480dbf9b",
         "symfony/phpunit-bridge": "^6.4 || ^7.0",
         "webignition/object-reflector": "^1.0"
