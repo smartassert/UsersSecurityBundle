@@ -22,21 +22,6 @@ services:
   SmartAssert\UsersSecurityBundle\Security\Authenticator:
     public: true
 
-  SmartAssert\ServiceClient\ResponseDecoder: ~
-
-  SmartAssert\ServiceClient\ResponseFactory\ResponseFactory:
-    factory: ['SmartAssert\ServiceClient\ResponseFactory\ResponseFactory', 'createFactory']
-
-  SmartAssert\ServiceClient\ExceptionFactory\CurlExceptionFactory: ~
-
-  SmartAssert\ServiceClient\Client: ~
-
-  SmartAssert\UsersClient\ObjectFactory: ~
-
-  SmartAssert\UsersClient\Client:
-    arguments:
-      $baseUrl: '%users_security_bundle_base_url%'
-
   SmartAssert\UsersSecurityBundle\Security\AuthenticationEntryPoint:
     public: true
 
@@ -46,3 +31,7 @@ services:
       $tokenStorage: '@security.token_storage'
     tags:
       - { name: controller.argument_value_resolver, priority: 50 }
+
+  SmartAssert\UsersSecurityBundle\Security\ApiTokenVerifier:
+    arguments:
+      $baseUrl: '%users_security_bundle_base_url%'

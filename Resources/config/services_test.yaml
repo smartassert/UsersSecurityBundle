@@ -1,5 +1,7 @@
 parameters:
   users_security_bundle_base_url: 'http://localhost:9080'
+  test_authentication_provider_bundle_frontend_token_provider_users:
+    'user@example.com': 'password'
 
 services:
   _defaults:
@@ -11,16 +13,12 @@ services:
 
   Psr\Http\Client\ClientInterface:
     class: GuzzleHttp\Client
+    public: true
 
   GuzzleHttp\Psr7\HttpFactory: ~
 
   Psr\Http\Message\StreamFactoryInterface:
     alias: GuzzleHttp\Psr7\HttpFactory
-
-  SmartAssert\UsersClient\Client:
-    arguments:
-      $baseUrl: '%users_security_bundle_base_url%'
-    public: true
 
   'request_stack':
     public: true
@@ -29,3 +27,22 @@ services:
   'security.token_storage':
     public: true
     synthetic: true
+
+  SmartAssert\TestAuthenticationProviderBundle\FrontendTokenProvider:
+    arguments:
+      $baseUrl: '%users_security_bundle_base_url%'
+      $userCredentials: '%test_authentication_provider_bundle_frontend_token_provider_users%'
+
+  SmartAssert\TestAuthenticationProviderBundle\UserProvider:
+    public: true
+    arguments:
+      $baseUrl: '%users_security_bundle_base_url%'
+
+  SmartAssert\TestAuthenticationProviderBundle\ApiTokenProvider:
+    public: true
+    arguments:
+      $baseUrl: '%users_security_bundle_base_url%'
+
+  SmartAssert\TestAuthenticationProviderBundle\ApiKeyProvider:
+    arguments:
+      $baseUrl: '%users_security_bundle_base_url%'
