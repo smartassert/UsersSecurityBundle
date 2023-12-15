@@ -48,7 +48,7 @@
             "docker-compose -f ./Tests/Integration/build/docker-compose.yml exec -T users-service php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration"
         ],
         "users-generate-jwt-keys": "docker-compose -f ./Tests/Integration/build/docker-compose.yml exec -T users-service php bin/console lexik:jwt:generate-keypair --overwrite --no-interaction",
-        "users-create-user": "curl --header 'Authorization: primary_admin_token' --data 'email=user@example.com&password=password' http://localhost:9080/user/create",
+        "users-create-user": "curl --header 'Authorization: primary_admin_token' --data 'identifier=user@example.com&password=password' http://localhost:9080/create",
         "users-setup": [
             "@users-db-setup",
             "@users-generate-jwt-keys",
