@@ -88,7 +88,7 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5",
         "smartassert/test-authenticaton-provider-bundle": "^5.0",
-        "squizlabs/php_codesniffer": "dev-master#e1af9d72da7917a9ec075777094c9a5a480dbf9b",
+        "squizlabs/php_codesniffer": "^4.0",
         "symfony/phpunit-bridge": "^6.4 || ^7.0",
         "webignition/object-reflector": "^1.0"
     },
