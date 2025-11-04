@@ -11,7 +11,7 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
 
 class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
-    public function start(Request $request, AuthenticationException $authException = null): Response
+    public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
         return new Response(null, Response::HTTP_UNAUTHORIZED);
     }
