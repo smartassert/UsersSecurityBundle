@@ -19,6 +19,6 @@ class EmptyUser implements UserInterface
 
     public function getUserIdentifier(): string
     {
-        return '';
+        return 'empty-user';
     }
 }
