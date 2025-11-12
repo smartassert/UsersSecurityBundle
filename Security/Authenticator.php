@@ -27,7 +27,7 @@ class Authenticator extends AbstractAuthenticator
 
     public function supports(Request $request): bool
     {
-        return false !== $this->tokenExtractor->extract($request);
+        return null !== $this->tokenExtractor->extract($request);
     }
 
     /**
