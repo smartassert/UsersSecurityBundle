@@ -51,7 +51,7 @@ class UserProviderTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function loadUserByIdentifierDataProvider(): array
+    public static function loadUserByIdentifierDataProvider(): array
     {
         return [
             'empty request' => [

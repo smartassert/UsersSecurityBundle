@@ -51,7 +51,7 @@ class AuthenticatorTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function authenticateFailureNoTokenInRequestDataProvider(): array
+    public static function authenticateFailureNoTokenInRequestDataProvider(): array
     {
         return [
             'token missing' => [
@@ -82,7 +82,7 @@ class AuthenticatorTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function authenticateFailureInvalidTokenDataProvider(): array
+    public static function authenticateFailureInvalidTokenDataProvider(): array
     {
         return [
             'invalid user token' => [

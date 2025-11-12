@@ -69,7 +69,7 @@ class UserResolverTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function resolveThrowsAccessDeniedExceptionDataProvider(): array
+    public static function resolveThrowsAccessDeniedExceptionDataProvider(): array
     {
         return [
             'no security token' => [
