@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SmartAssert\UsersSecurityBundle\Tests\Functional\Security;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SmartAssert\UsersSecurityBundle\Security\InvalidUser;
 use SmartAssert\UsersSecurityBundle\Security\User;
@@ -38,9 +39,7 @@ class UserProviderTest extends TestCase
         $this->requestStack = $requestStack;
     }
 
-    /**
-     * @dataProvider loadUserByIdentifierDataProvider
-     */
+    #[DataProvider('loadUserByIdentifierDataProvider')]
     public function testLoadUserByIdentifier(Request $request, string $identifier, UserInterface $expected): void
     {
         $this->requestStack->push($request);
@@ -51,7 +50,7 @@ class UserProviderTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function loadUserByIdentifierDataProvider(): array
+    public static function loadUserByIdentifierDataProvider(): array
     {
         return [
             'empty request' => [
