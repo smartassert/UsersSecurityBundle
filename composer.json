@@ -72,13 +72,13 @@
         "guzzlehttp/guzzle": "^7.8",
         "psr/http-factory": "^1.0",
         "smartassert/security-token-extractor": "^1.0",
-        "symfony/config": "^6.4 || ^7.0",
-        "symfony/dependency-injection": "^6.4 || ^7.0",
-        "symfony/http-foundation": "^6.4 || ^7.0",
-        "symfony/http-kernel": "^6.4 || ^7.0",
-        "symfony/security-core": "^6.4 || ^7.0",
-        "symfony/security-http": "^6.4 || ^7.0",
-        "symfony/yaml": "^6.4 || ^7.0"
+        "symfony/config": "^7.3",
+        "symfony/dependency-injection": "^7.3",
+        "symfony/http-foundation": "^7.3",
+        "symfony/http-kernel": "^7.3",
+        "symfony/security-core": "^7.3",
+        "symfony/security-http": "^7.3",
+        "symfony/yaml": "^7.3"
     },
     "require-dev": {
         "mockery/mockery": "^1.5",
@@ -90,7 +90,7 @@
         "phpunit/phpunit": "^9.5",
         "smartassert/test-authenticaton-provider-bundle": "^5.0",
         "squizlabs/php_codesniffer": "^4.0",
-        "symfony/phpunit-bridge": "^6.4 || ^7.0",
+        "symfony/phpunit-bridge": "^7.3",
         "webignition/object-reflector": "^1.0"
     },
     "config": {
