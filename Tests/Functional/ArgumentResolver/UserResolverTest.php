@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SmartAssert\UsersSecurityBundle\Tests\Functional\ArgumentResolver;
 
 use Mockery\MockInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SmartAssert\UsersSecurityBundle\ArgumentResolver\UserResolver;
 use SmartAssert\UsersSecurityBundle\Security\EmptyUser;
@@ -49,9 +50,7 @@ class UserResolverTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider resolveThrowsAccessDeniedExceptionDataProvider
-     */
+    #[DataProvider('resolveThrowsAccessDeniedExceptionDataProvider')]
     public function testResolveThrowsAccessDeniedException(?TokenInterface $securityToken): void
     {
         self::expectException(AccessDeniedException::class);

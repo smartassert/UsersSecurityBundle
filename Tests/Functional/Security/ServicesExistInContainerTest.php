@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SmartAssert\UsersSecurityBundle\Tests\Functional\Security;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SmartAssert\UsersSecurityBundle\Security\AuthenticationEntryPoint;
 use SmartAssert\UsersSecurityBundle\Security\SymfonyRequestTokenExtractor;
@@ -26,10 +27,9 @@ class ServicesExistInContainerTest extends TestCase
     }
 
     /**
-     * @dataProvider serviceExistsInContainerDataProvider
-     *
      * @param class-string $id
      */
+    #[DataProvider('serviceExistsInContainerDataProvider')]
     public function testServiceExistsInContainer(string $id): void
     {
         self::assertInstanceOf($id, $this->container->get($id));

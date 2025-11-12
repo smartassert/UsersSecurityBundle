@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SmartAssert\UsersSecurityBundle\Tests\Integration\Security;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SmartAssert\TestAuthenticationProviderBundle\ApiTokenProvider;
 use SmartAssert\TestAuthenticationProviderBundle\UserProvider;
@@ -36,9 +37,7 @@ class AuthenticatorTest extends TestCase
         $this->authenticator = $authenticator;
     }
 
-    /**
-     * @dataProvider authenticateFailureNoTokenInRequestDataProvider
-     */
+    #[DataProvider('authenticateFailureNoTokenInRequestDataProvider')]
     public function testAuthenticateFailureNoTokenInRequest(Request $request): void
     {
         self::expectExceptionObject(
@@ -66,10 +65,9 @@ class AuthenticatorTest extends TestCase
     }
 
     /**
-     * @dataProvider authenticateFailureInvalidTokenDataProvider
-     *
      * @param non-empty-string $userTokenValue
      */
+    #[DataProvider('authenticateFailureInvalidTokenDataProvider')]
     public function testAuthenticateFailureInvalidToken(string $userTokenValue, Request $request): void
     {
         self::expectExceptionObject(
