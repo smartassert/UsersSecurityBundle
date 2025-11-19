@@ -20,6 +20,7 @@ abstract readonly class AbstractUser implements UserInterface
         return [];
     }
 
+    #[\Deprecated]
     public function eraseCredentials(): void {}
 
     /**

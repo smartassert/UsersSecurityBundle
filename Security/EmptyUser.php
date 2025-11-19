@@ -13,6 +13,7 @@ class EmptyUser implements UserInterface
         return [];
     }
 
+    #[\Deprecated]
     public function eraseCredentials(): void {}
 
     public function getUserIdentifier(): string
