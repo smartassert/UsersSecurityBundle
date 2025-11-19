@@ -25,12 +25,10 @@
         }
     },
     "scripts": {
-        "cs-fixer-dry-run": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --dry-run --verbose --show-progress none",
-        "cs-fixer-fix": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --diff",
-        "cs-phpcs": "./vendor/bin/phpcs",
+        "cs-fixer-dry-run": "./vendor/bin/php-cs-fixer check --allow-risky=yes --verbose --show-progress none",
+        "cs-fixer-fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes --diff",
         "cs": [
-            "@cs-fixer-dry-run",
-            "@cs-phpcs"
+            "@cs-fixer-dry-run"
         ],
         "static-analysis": "./vendor/bin/phpstan analyse --ansi",
         "test": [
@@ -81,6 +79,7 @@
         "symfony/yaml": "^7.3"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.89",
         "mockery/mockery": "^1.5",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
@@ -89,7 +88,6 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^12",
         "smartassert/test-authenticaton-provider-bundle": "^5.0",
-        "squizlabs/php_codesniffer": "^4.0",
         "symfony/phpunit-bridge": "^7.3",
         "webignition/object-reflector": "^1.0"
     },

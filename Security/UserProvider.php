@@ -16,8 +16,7 @@ readonly class UserProvider implements UserProviderInterface
     public function __construct(
         private RequestStack $requestStack,
         private SymfonyRequestTokenExtractor $tokenExtractor,
-    ) {
-    }
+    ) {}
 
     public function refreshUser(UserInterface $user): UserInterface
     {

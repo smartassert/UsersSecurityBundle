@@ -22,8 +22,7 @@ class Authenticator extends AbstractAuthenticator
     public function __construct(
         private readonly SymfonyRequestTokenExtractor $tokenExtractor,
         private readonly ApiTokenVerifier $apiTokenVerifier,
-    ) {
-    }
+    ) {}
 
     public function supports(Request $request): bool
     {

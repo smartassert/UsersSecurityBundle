@@ -6,6 +6,4 @@ namespace SmartAssert\UsersSecurityBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-readonly class InvalidUser extends AbstractUser implements UserInterface
-{
-}
+readonly class InvalidUser extends AbstractUser implements UserInterface {}
