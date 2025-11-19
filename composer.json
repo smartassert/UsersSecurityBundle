@@ -25,8 +25,8 @@
         }
     },
     "scripts": {
-        "cs-fixer-dry-run": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --dry-run --verbose --show-progress none",
-        "cs-fixer-fix": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --diff",
+        "cs-fixer-dry-run": "./vendor/bin/php-cs-fixer check --allow-risky=yes --verbose --show-progress none",
+        "cs-fixer-fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes --diff",
         "cs-phpcs": "./vendor/bin/phpcs",
         "cs": [
             "@cs-fixer-dry-run",
@@ -81,6 +81,7 @@
         "symfony/yaml": "^7.3"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.89",
         "mockery/mockery": "^1.5",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
