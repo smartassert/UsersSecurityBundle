@@ -58,7 +58,7 @@ class AuthenticatorTest extends TestCase
             ],
             'token empty' => [
                 'request' => new Request(server: [
-                    'HTTP_AUTHORIZATION' => 'Bearer '
+                    'HTTP_AUTHORIZATION' => 'Bearer ',
                 ]),
             ],
         ];
@@ -99,7 +99,7 @@ class AuthenticatorTest extends TestCase
         $apiToken = $apiTokenProvider->get(self::USER_EMAIL);
 
         $passport = $this->authenticator->authenticate(new Request(server: [
-            'HTTP_AUTHORIZATION' => 'Bearer ' . $apiToken
+            'HTTP_AUTHORIZATION' => 'Bearer ' . $apiToken,
         ]));
 
         $userProvider = $this->container->get(UserProvider::class);

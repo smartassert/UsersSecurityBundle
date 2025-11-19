@@ -16,8 +16,7 @@ readonly class ApiTokenVerifier
     public function __construct(
         private string $baseUrl,
         private ClientInterface $httpClient,
-    ) {
-    }
+    ) {}
 
     /**
      * @return non-empty-string

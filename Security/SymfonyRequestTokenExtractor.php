@@ -13,8 +13,7 @@ readonly class SymfonyRequestTokenExtractor
     public function __construct(
         private RequestFactoryInterface $requestFactory,
         private TokenExtractor $tokenExtractor,
-    ) {
-    }
+    ) {}
 
     public function extract(Request $request): ?string
     {

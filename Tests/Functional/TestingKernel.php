@@ -21,7 +21,5 @@ class TestingKernel extends Kernel
         ];
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader): void
-    {
-    }
+    public function registerContainerConfiguration(LoaderInterface $loader): void {}
 }

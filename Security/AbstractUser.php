@@ -13,17 +13,14 @@ abstract readonly class AbstractUser implements UserInterface
      */
     public function __construct(
         private string $identifier,
-    ) {
-    }
+    ) {}
 
     public function getRoles(): array
     {
         return [];
     }
 
-    public function eraseCredentials(): void
-    {
-    }
+    public function eraseCredentials(): void {}
 
     /**
      * @return non-empty-string
