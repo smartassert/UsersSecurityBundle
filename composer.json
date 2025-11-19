@@ -27,10 +27,8 @@
     "scripts": {
         "cs-fixer-dry-run": "./vendor/bin/php-cs-fixer check --allow-risky=yes --verbose --show-progress none",
         "cs-fixer-fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes --diff",
-        "cs-phpcs": "./vendor/bin/phpcs",
         "cs": [
-            "@cs-fixer-dry-run",
-            "@cs-phpcs"
+            "@cs-fixer-dry-run"
         ],
         "static-analysis": "./vendor/bin/phpstan analyse --ansi",
         "test": [
@@ -90,7 +88,6 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^12",
         "smartassert/test-authenticaton-provider-bundle": "^5.0",
-        "squizlabs/php_codesniffer": "^4.0",
         "symfony/phpunit-bridge": "^7.3",
         "webignition/object-reflector": "^1.0"
     },
