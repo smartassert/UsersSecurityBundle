@@ -88,8 +88,7 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^12",
         "smartassert/test-authenticaton-provider-bundle": "^5.0",
-        "symfony/phpunit-bridge": "^7.3",
-        "webignition/object-reflector": "^1.0"
+        "symfony/phpunit-bridge": "^7.3"
     },
     "config": {
         "sort-packages": true,
