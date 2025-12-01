@@ -1,0 +1,20 @@
+version: 2
+updates:
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      # Check for updates to GitHub Actions every week
+      interval: "weekly"
+
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "symfony/*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      symfony:
+        patterns:
+          - "symfony/*"
