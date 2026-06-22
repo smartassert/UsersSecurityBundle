@@ -70,13 +70,13 @@
         "guzzlehttp/guzzle": "^7.8",
         "psr/http-factory": "^1.0",
         "smartassert/security-token-extractor": "^1.0",
-        "symfony/config": "^8.0",
-        "symfony/dependency-injection": "^8.0",
-        "symfony/http-foundation": "^8.0",
-        "symfony/http-kernel": "^8.0",
-        "symfony/security-core": "^8.0",
-        "symfony/security-http": "^8.0",
-        "symfony/yaml": "^8.0"
+        "symfony/config": "^8.1",
+        "symfony/dependency-injection": "^8.1",
+        "symfony/http-foundation": "^8.1",
+        "symfony/http-kernel": "^8.1",
+        "symfony/security-core": "^8.1",
+        "symfony/security-http": "^8.1",
+        "symfony/yaml": "^8.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.89",
@@ -88,7 +88,7 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^12",
         "smartassert/test-authenticaton-provider-bundle": "^6.0",
-        "symfony/phpunit-bridge": "^8.0"
+        "symfony/phpunit-bridge": "^8.1"
     },
     "config": {
         "sort-packages": true,
