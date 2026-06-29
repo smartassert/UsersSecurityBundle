@@ -86,7 +86,7 @@
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-mockery": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
-        "phpunit/phpunit": "^12",
+        "phpunit/phpunit": "^13",
         "smartassert/test-authenticaton-provider-bundle": "^6.0",
         "symfony/phpunit-bridge": "^8.1"
     },
